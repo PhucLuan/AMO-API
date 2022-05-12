@@ -145,11 +145,25 @@ namespace Rookie.AMO.Business.Services
                     break;
                 case "returnDate":
                     if (filter.Desc)
-                        query = query.OrderByDescending(a => a.ReturnDate.Value.Date)
+                        returnRequestQuery = returnRequestQuery.OrderByDescending(a => a.ReturnDate.Value.Date)
                             .ThenBy(x => x.ReturnDate.Value.TimeOfDay);
                     else
-                        query = query.OrderBy(a => a.ReturnDate.Value.Date)
+                        returnRequestQuery = returnRequestQuery.OrderBy(a => a.ReturnDate.Value.Date)
                             .ThenBy(x => x.ReturnDate.Value.TimeOfDay);
+                    break;
+                case "assignedDate":
+                    if (filter.Desc)
+                        returnRequestQuery = returnRequestQuery.OrderByDescending(a => a.AssignedDate.Date);
+                    // .ThenBy(x => x.ReturnDate.AssignedDate.TimeOfDay);
+                    else
+                        returnRequestQuery = returnRequestQuery.OrderBy(a => a.AssignedDate.Date);
+                    //.ThenBy(x => x.ReturnDate.AssignedDate.TimeOfDay);
+                    break;
+                case "state":
+                    if (filter.Desc)
+                        returnRequestQuery = returnRequestQuery.OrderByDescending(a => a.State);
+                    else
+                        returnRequestQuery = returnRequestQuery.OrderBy(a => a.State);
                     break;
                 case "":
                     break;

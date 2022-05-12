@@ -96,6 +96,7 @@ namespace Rookie.AMO.Business.Services
             asset.Specification = assetUpdate.Specification;
             asset.InstalledDate = assetUpdate.InstalledDate;
             asset.State = assetUpdate.State;
+            asset.UpdatedDate = DateTime.Now;
             await _baseRepository.UpdateAsync(asset);
             return _mapper.Map<AssetDto>(asset);
         }

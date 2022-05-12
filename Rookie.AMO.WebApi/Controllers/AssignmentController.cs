@@ -82,8 +82,8 @@ namespace Rookie.AMO.WebApi.Controllers
             var assignUser = assignment.CreatorId != null ? userList.FirstOrDefault(x => x.Id == assignment.CreatorId) : null;
             var assignedUser = userList.FirstOrDefault(x => x.Id == assignment.UserID);
 
-            assignment.AssignedTo = assignedUser != null ? assignedUser.FullName : "";
-            assignment.AssignedBy = assignUser != null ? assignUser.FullName : "";
+            assignment.AssignedTo = assignedUser != null ? assignedUser.UserName : "";
+            assignment.AssignedBy = assignUser != null ? assignUser.UserName : "";
 
             return assignment;
         }
@@ -137,8 +137,8 @@ namespace Rookie.AMO.WebApi.Controllers
             => await _assignmentService.GetAllAsync();
 
         [Authorize(Policy = "ADMIN_ROLE_POLICY")]
-        [HttpGet("find")]
-        public async Task<PagedResponseModel<AssignmentDto>> FindAsync([FromQuery] FilterAssignmentModel filterAssignmentsModel)
+        [HttpPost("find")]
+        public async Task<PagedResponseModel<AssignmentDto>> FindAsync(FilterAssignmentModel filterAssignmentsModel)
         {
             string filterByUser = "";
             if (filterAssignmentsModel.OrderProperty == "AssignedTo" || filterAssignmentsModel.OrderProperty == "AssignedBy") {

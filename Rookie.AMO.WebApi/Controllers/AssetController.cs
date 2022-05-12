@@ -48,6 +48,17 @@ namespace Rookie.AMO.WebApi.Controllers
             return NoContent();
         }
 
+        [HttpGet("IsAssetExitInAssignmentAsync/{id}")]
+        public async Task<ActionResult> IsAssetExitInAssignmentAsync([FromRoute] Guid id)
+        {
+            var checkexistinAssignment = await _assignmentService.ExistAsync(x => x.AssetID == id);
+            if (checkexistinAssignment)
+            {
+                return Content("true");
+            }
+            return Content("false");
+        }
+
         [HttpGet("{id}")]
         public async Task<AssetDto> GetByIdAsync(Guid id)
             => await _assetService.GetByIdAsync(id);
